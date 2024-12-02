@@ -10,6 +10,7 @@ import { config, Rule } from "../config.js";
 import { hasUsedToken, updateBlobAccess } from "../db/methods.js";
 import { readUpload, removeUpload, saveFromUploadRequest } from "../storage/upload.js";
 import { blobDB } from "../db/db.js";
+import { isPubkeyWhitelisted } from '../helpers/whitelist';
 
 export type UploadState = CommonState & {
   contentType: string;
@@ -79,6 +80,11 @@ router.head<UploadState>("/upload", async (ctx) => {
 });
 
 router.put<UploadState>("/upload", async (ctx) => {
+  const pubkey = ctx.state.auth?.pubkey;
+  if (!pubkey || !isPubkeyWhitelisted(pubkey)) {
+    throw new HttpErrors.Forbidden("User is not a Premium Azzamo Member. Get premium at azzamo.net/pay.");
+  }
+
   const { contentType } = ctx.state;
 
   let upload = await saveFromUploadRequest(ctx.req);
@@ -110,3 +116,4 @@ router.put<UploadState>("/upload", async (ctx) => {
     throw error;
   }
 });
+

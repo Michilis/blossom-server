@@ -14,6 +14,7 @@ import { config } from "./config.js";
 import { isHttpError } from "./helpers/error.js";
 import db from "./db/db.js";
 import { pruneStorage } from "./storage/index.js";
+import { fetchAndCachePubkeys } from './helpers/whitelist';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -94,3 +95,13 @@ async function shutdown() {
 
 process.addListener("SIGTERM", shutdown);
 process.addListener("SIGINT", shutdown);
+
+// Check the whitelist every minute
+setInterval(async () => {
+  const updated = await fetchAndCachePubkeys();
+  if (updated) {
+    console.log('Whitelist cache was updated.');
+  } else {
+    console.log('No changes in the whitelist.');
+  }
+}, 60 * 1000); // 60 seconds

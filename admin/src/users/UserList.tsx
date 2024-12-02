@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useMediaQuery, Theme, Avatar, Stack, Box, Typography } from "@mui/material";
 import { Datagrid, List, SimpleList, TextField, useRecordContext } from "react-admin";
+import { isPubkeyWhitelisted } from '../../helpers/whitelist';
 
 function NumberOfBlobs() {
   const record = useRecordContext();
@@ -21,6 +22,11 @@ function UserProfile() {
     </Stack>
   );
 }
+function WhitelistStatus() {
+  const record = useRecordContext();
+  const isWhitelisted = isPubkeyWhitelisted(record.pubkey);
+  return <p>{isWhitelisted ? 'Yes' : 'No'}</p>;
+}
 
 export default function UserList() {
   return (
@@ -32,6 +38,7 @@ export default function UserList() {
           <UserProfile />
           <TextField source="pubkey" />
           <NumberOfBlobs />
+          <WhitelistStatus />
         </Datagrid>
       )}
     </List>
