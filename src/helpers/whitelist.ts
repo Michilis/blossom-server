@@ -14,7 +14,7 @@ export async function fetchAndCachePubkeys() {
     const response = await fetch(WHITELIST_URL);
     if (!response.ok) throw new Error('Failed to fetch whitelist');
     
-    const data: WhitelistResponse = await response.json();
+    const data = await response.json() as WhitelistResponse;
     const pubkeys = Object.values(data.names);
     
     const currentCache = fs.existsSync(WHITELIST_FILE) ? JSON.parse(fs.readFileSync(WHITELIST_FILE, 'utf-8')) : [];
