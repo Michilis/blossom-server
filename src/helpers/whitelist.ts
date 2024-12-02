@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import fetch from 'node-fetch';
+import fetch from 'cross-fetch';
 
 const WHITELIST_URL = 'https://relayapi.azzamo.net/.well-known/nostr.json';
 const WHITELIST_FILE = path.resolve(__dirname, '../data/whitelist.json');
