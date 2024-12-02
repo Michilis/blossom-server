@@ -1,11 +1,16 @@
 import fetch from 'cross-fetch';
 
-let fs, path, fileURLToPath, __filename, __dirname, WHITELIST_FILE;
+let fs: typeof import('fs');
+let path: typeof import('path');
+let fileURLToPath: (url: string | URL) => string;
+let __filename: string;
+let __dirname: string;
+let WHITELIST_FILE: string;
 
 if (typeof window === 'undefined') {
   fs = await import('fs');
   path = await import('path');
-  fileURLToPath = await import('url').then(mod => mod.fileURLToPath);
+  fileURLToPath = (await import('url')).fileURLToPath;
 
   __filename = fileURLToPath(import.meta.url);
   __dirname = path.dirname(__filename);
