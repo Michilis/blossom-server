@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useMediaQuery, Theme, Avatar, Stack, Box, Typography } from "@mui/material";
 import { Datagrid, List, SimpleList, TextField, useRecordContext } from "react-admin";
-import { isPubkeyWhitelisted } from '../../helpers/whitelist';
+import { isPubkeyWhitelisted } from '../../../src/helpers/whitelist.js';
 
 function NumberOfBlobs() {
   const record = useRecordContext();
