@@ -14,7 +14,7 @@ import { config } from "./config.js";
 import { isHttpError } from "./helpers/error.js";
 import db from "./db/db.js";
 import { pruneStorage } from "./storage/index.js";
-import { fetchAndCachePubkeys } from './helpers/whitelist';
+import { fetchAndCachePubkeys } from './helpers/whitelist.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

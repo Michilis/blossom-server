@@ -10,7 +10,7 @@ import { config, Rule } from "../config.js";
 import { hasUsedToken, updateBlobAccess } from "../db/methods.js";
 import { readUpload, removeUpload, saveFromUploadRequest } from "../storage/upload.js";
 import { blobDB } from "../db/db.js";
-import { isPubkeyWhitelisted } from '../helpers/whitelist';
+import { isPubkeyWhitelisted } from '../helpers/whitelist.js';
 
 export type UploadState = CommonState & {
   contentType: string;
