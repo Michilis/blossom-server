@@ -82,7 +82,7 @@ router.head<UploadState>("/upload", async (ctx) => {
 router.put<UploadState>("/upload", async (ctx) => {
   const pubkey = ctx.state.auth?.pubkey;
   if (!pubkey || !isPubkeyWhitelisted(pubkey)) {
-    throw new HttpErrors.Forbidden("User is not a Premium Azzamo Member. Get premium at azzamo.net/pay.");
+    throw new HttpErrors.Forbidden("You are not a premium Azzamo Member. Get premium at azzamo.net/pay");
   }
 
   const { contentType } = ctx.state;
