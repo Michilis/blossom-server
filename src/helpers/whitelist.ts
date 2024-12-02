@@ -5,12 +5,16 @@ import fetch from 'node-fetch';
 const WHITELIST_URL = 'https://relayapi.azzamo.net/.well-known/nostr.json';
 const WHITELIST_FILE = path.resolve(__dirname, '../data/whitelist.json');
 
+interface WhitelistResponse {
+  names: Record<string, string>;
+}
+
 export async function fetchAndCachePubkeys() {
   try {
     const response = await fetch(WHITELIST_URL);
     if (!response.ok) throw new Error('Failed to fetch whitelist');
     
-    const data = await response.json();
+    const data: WhitelistResponse = await response.json();
     const pubkeys = Object.values(data.names);
     
     const currentCache = fs.existsSync(WHITELIST_FILE) ? JSON.parse(fs.readFileSync(WHITELIST_FILE, 'utf-8')) : [];
